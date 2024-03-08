@@ -19,8 +19,8 @@ const Selector = (props: SelectorProps) => {
       <input type="checkbox" checked={toggle} onChange={setToggle} />
       <span className="slider round"></span>
     </label>
-    <span>{label}</span>
-    {!toggle ? <span>Resolved !</span> : ""}
+    <span className={toggle ? "ko" : ""}>{label}</span>
+    {!toggle ? <span className="ok">Resolved !</span> : ""}
   </div>
 }
 

@@ -5,6 +5,10 @@
   align-items: center;
 }
 
+.switch-box>span {
+  padding: 4px;
+}
+
 .switch {
   position: relative;
   display: inline-block;
@@ -63,4 +67,12 @@ input:checked+.slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.ok {
+  color: green;
+}
+
+.ko {
+  color: red
 }
