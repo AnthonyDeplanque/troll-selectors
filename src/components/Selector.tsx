@@ -1,18 +1,14 @@
-import { useEffect, useState } from "react";
 import "../assets/switch.css"
 
 interface SelectorProps {
   label: string
   toggle: boolean,
   setToggle: () => void;
-
 }
 
 const Selector = (props: SelectorProps) => {
 
   const { toggle, label, setToggle } = props;
-
-
 
   return <div className="switch-box">
     <label className="switch">
