@@ -15,7 +15,7 @@ const SelectorList = () => {
   }, [])
 
   const setToggle = (previousIndex: number) => {
-    const numberOfIndexToChange = Math.floor(Math.random() * 3) + 1;
+    const numberOfIndexToChange = Math.floor(Math.random() * 2) + 2;
     const indexesToChange = Array.from({ length: numberOfIndexToChange }).map(() => {
       let indexToChange: number;
       do {
