@@ -30,6 +30,14 @@ const SelectorList = () => {
       indexesToChange.forEach((indexToChange) => newValuesArray[indexToChange] = !newValuesArray[indexToChange])
       return newValuesArray
     })
+    if (values.some(() => true)) {
+      const indexToSetToTrue = Math.floor(Math.random() * numberOfSelectors)
+      setValues((previousValues) => {
+        const newValuesArray = [...previousValues]
+        newValuesArray[indexToSetToTrue] = true;
+        return newValuesArray
+      })
+    }
 
 
   }
