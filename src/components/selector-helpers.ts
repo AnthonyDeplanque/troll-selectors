@@ -40,13 +40,14 @@ export const setToggle = (
 
     // If all is false, game is over, we don't want that so we'll change randomly one value index
     if (!values.some(() => true)) {
-        let indexToSetToTrue:number 
+        let indexToSetToTrue: number;
         do {
-            indexToSetToTrue = Math.floor(Math.random() * numberOfSelectors)+1;
-        }while (indexToSetToTrue === switchedToggleIndex )
+            indexToSetToTrue = Math.floor(Math.random() * numberOfSelectors) + 1;
+        } while (indexToSetToTrue === switchedToggleIndex);
         setValues((previousValues) => {
             const newValuesArray = [...previousValues];
             newValuesArray[indexToSetToTrue] = true;
             return newValuesArray;
         });
+    }
 };
