@@ -1,3 +1,5 @@
+import { toast } from 'sonner';
+
 export const randomNumber = (max: number, min?: number) => Math.floor(Math.random() * max) + (min ? min : 1);
 
 export const createArrayOfRandomBooleans = (length: number, limit: number) => {
@@ -15,17 +17,18 @@ export const setToggle = (
     values: boolean[],
     setValues: (value: React.SetStateAction<boolean[]>) => void,
 ) => {
-    // get values array indexes that can be changed (not the selected one and not a "false" value)
+    const numberOfTrue = values.filter((value) => value === true).length;
+
     const indexThatCanBeChanged: number[] = values
         .map((value, index: number) => {
             return { value, index };
         })
-        .filter((item) => item.index !== switchedToggleIndex)
-        .filter((item) => item.value === false)
+        .filter((item) => numberOfTrue >= numberOfSelectors / 2 || item.value === false)
+        .filter((item) => item.index !== switchedToggleIndex) // Filtre supplémentaire si nécessaire
         .map((item) => item.index);
 
     // Determine how many indexes are to change
-    const indexesLength = randomNumber(2);
+    const indexesLength = randomNumber(3);
 
     // Change randomly values
     if (indexThatCanBeChanged.length > indexesLength) {
@@ -43,13 +46,28 @@ export const setToggle = (
         return newValuesArray;
     });
 
-    const checkIfHalfValuesAreResolved = values.filter((value) => value === false).length <= numberOfSelectors / 2;
+    const checkIfHalfValuesAreResolved = values.filter((value) => value === false).length >= numberOfSelectors / 2;
 
     if (checkIfHalfValuesAreResolved) {
         const chancesToTroll = randomNumber(100);
         if (chancesToTroll > 75) {
+            const toasterPosition = (
+                ['bottom-center', 'bottom-left', 'bottom-right', 'top-center', 'top-left', 'top-right'] as const
+            )[chancesToTroll % 6];
+
+            toast.success('TROLLED !!', { duration: 500, position: toasterPosition });
             setValues((previousValues) => {
-                const newValuesArray = previousValues.map((value) => !value);
+                const newValuesArray = previousValues.map((value, index) => {
+                    if (index === switchedToggleIndex) {
+                        return value;
+                    } else {
+                        if (value) {
+                            return value;
+                        } else {
+                            return !value;
+                        }
+                    }
+                });
                 return newValuesArray;
             });
         }
