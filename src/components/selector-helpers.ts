@@ -1,8 +1,12 @@
-export const createArrayOfRandomBooleans = (length: number, trollLimit: number) => {
+import { toast } from 'sonner';
+
+export const randomNumber = (max: number, min?: number) => Math.floor(Math.random() * max) + (min ? min : 1);
+
+export const createArrayOfRandomBooleans = (length: number, limit: number) => {
     const array = Array.from({ length: length }).map(() => false);
     const indexesToChange = Array.from({
-        length: Math.floor(Math.random() * trollLimit) + 1,
-    }).map(() => Math.floor(Math.random() * length) + 1);
+        length: randomNumber(limit),
+    }).map(() => randomNumber(length - 1));
     indexesToChange.forEach((index) => (array[index] = true));
     return array;
 };
@@ -13,21 +17,25 @@ export const setToggle = (
     values: boolean[],
     setValues: (value: React.SetStateAction<boolean[]>) => void,
 ) => {
-    console.log(switchedToggleIndex, numberOfSelectors, values);
+    const numberOfTrue = values.filter((value) => value === true).length;
 
-    // get values array indexes that can be changed (not the selected one and not a "false" value)
     const indexThatCanBeChanged: number[] = values
-        .filter((_, index: number) => index !== switchedToggleIndex)
-        .filter((value: boolean) => value === false)
-        .map((_, index: number) => index);
+        .map((value, index: number) => {
+            return { value, index };
+        })
+        .filter((item) => numberOfTrue >= numberOfSelectors / 2 || item.value === false)
+        .filter((item) => item.index !== switchedToggleIndex) // Filtre supplémentaire si nécessaire
+        .map((item) => item.index);
 
     // Determine how many indexes are to change
-    const indexesLength = Math.floor(Math.random() * 2) + 1;
+    const indexesLength = randomNumber(3);
 
     // Change randomly values
-    while (indexThatCanBeChanged.length !== indexesLength || indexesLength > indexThatCanBeChanged.length) {
-        const arrayIndexToSplice = Math.floor(Math.random() * (indexThatCanBeChanged.length + 1));
-        indexThatCanBeChanged.splice(arrayIndexToSplice, 1);
+    if (indexThatCanBeChanged.length > indexesLength) {
+        while (indexThatCanBeChanged.length !== indexesLength || indexesLength > indexThatCanBeChanged.length) {
+            const arrayIndexToSplice = randomNumber(indexThatCanBeChanged.length);
+            indexThatCanBeChanged.splice(arrayIndexToSplice, 1);
+        }
     }
 
     // set new values
@@ -38,16 +46,30 @@ export const setToggle = (
         return newValuesArray;
     });
 
-    // If all is false, game is over, we don't want that so we'll change randomly one value index
-    if (!values.some(() => true)) {
-        let indexToSetToTrue: number;
-        do {
-            indexToSetToTrue = Math.floor(Math.random() * numberOfSelectors) + 1;
-        } while (indexToSetToTrue === switchedToggleIndex);
-        setValues((previousValues) => {
-            const newValuesArray = [...previousValues];
-            newValuesArray[indexToSetToTrue] = true;
-            return newValuesArray;
-        });
+    const checkIfHalfValuesAreResolved = values.filter((value) => value === false).length >= numberOfSelectors / 2;
+
+    if (checkIfHalfValuesAreResolved) {
+        const chancesToTroll = randomNumber(100);
+        if (chancesToTroll > 75) {
+            const toasterPosition = (
+                ['bottom-center', 'bottom-left', 'bottom-right', 'top-center', 'top-left', 'top-right'] as const
+            )[chancesToTroll % 6];
+
+            toast.success('TROLLED !!', { duration: 500, position: toasterPosition });
+            setValues((previousValues) => {
+                const newValuesArray = previousValues.map((value, index) => {
+                    if (index === switchedToggleIndex) {
+                        return value;
+                    } else {
+                        if (value) {
+                            return value;
+                        } else {
+                            return !value;
+                        }
+                    }
+                });
+                return newValuesArray;
+            });
+        }
     }
 };

@@ -1,12 +1,13 @@
-import './App.css'
-import SelectorList from './components/Selector-list'
+import { Toaster } from 'sonner';
+import SelectorList from './components/Selector-list';
 
 function App() {
-  return (
-    <>
-      <SelectorList />
-    </>
-  )
+    return (
+        <>
+            <SelectorList />
+            <Toaster />
+        </>
+    );
 }
 
-export default App
+export default App;

@@ -11,26 +11,19 @@ const SelectorList = () => {
     }, []);
 
     return (
-        <div>
-            {values.length
-                ? values.map((value, index) => {
-                      return (
-                          <Selector
-                              key={`selector-${index}`}
-                              toggle={value}
-                              label={`bug ${105 + index}`}
-                              setToggle={() =>
-                                  setToggle(
-                                      index,
-                                      numberOfSelectors,
-                                      values,
-                                      setValues,
-                                  )
-                              }
-                          />
-                      );
-                  })
-                : ''}
+        <div className='main-container'>
+            <div className='switches'>
+                {values.length &&
+                    values.map((value, index) => (
+                        <Selector
+                            key={`selector-${index}`}
+                            toggle={value}
+                            label={`bug ${index}`}
+                            setToggle={() => setToggle(index, numberOfSelectors, values, setValues)}
+                        />
+                    ))}
+            </div>
+            <div className='response'>{values.every((value) => value === false) ? <p>ALL BUG RESOLVED !</p> : ''}</div>
         </div>
     );
 };
