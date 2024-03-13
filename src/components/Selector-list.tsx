@@ -18,15 +18,8 @@ const SelectorList = () => {
                           <Selector
                               key={`selector-${index}`}
                               toggle={value}
-                              label={`bug ${105 + index}`}
-                              setToggle={() =>
-                                  setToggle(
-                                      index,
-                                      numberOfSelectors,
-                                      values,
-                                      setValues,
-                                  )
-                              }
+                              label={`bug ${index}`}
+                              setToggle={() => setToggle(index, numberOfSelectors, values, setValues)}
                           />
                       );
                   })
