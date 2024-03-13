@@ -1,10 +1,10 @@
 export const randomNumber = (max: number, min?: number) => Math.floor(Math.random() * max) + (min ? min : 1);
 
-export const createArrayOfRandomBooleans = (length: number, trollLimit: number) => {
+export const createArrayOfRandomBooleans = (length: number, limit: number) => {
     const array = Array.from({ length: length }).map(() => false);
     const indexesToChange = Array.from({
-        length: randomNumber(trollLimit),
-    }).map(() => randomNumber(length));
+        length: randomNumber(limit),
+    }).map(() => randomNumber(length - 1));
     indexesToChange.forEach((index) => (array[index] = true));
     return array;
 };
@@ -25,7 +25,7 @@ export const setToggle = (
         .map((item) => item.index);
 
     // Determine how many indexes are to change
-    const indexesLength = randomNumber(1);
+    const indexesLength = randomNumber(2);
 
     // Change randomly values
     if (indexThatCanBeChanged.length > indexesLength) {
@@ -43,7 +43,7 @@ export const setToggle = (
         return newValuesArray;
     });
 
-    const checkIfHalfValuesAreResolved = values.filter((value) => !value).length <= numberOfSelectors / 2;
+    const checkIfHalfValuesAreResolved = values.filter((value) => value === false).length <= numberOfSelectors / 2;
 
     if (checkIfHalfValuesAreResolved) {
         const chancesToTroll = randomNumber(100);
