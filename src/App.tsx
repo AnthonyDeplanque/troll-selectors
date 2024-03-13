@@ -1,12 +1,11 @@
-import './App.css'
-import SelectorList from './components/Selector-list'
+import SelectorList from './components/Selector-list';
 
 function App() {
-  return (
-    <>
-      <SelectorList />
-    </>
-  )
+    return (
+        <>
+            <SelectorList />
+        </>
+    );
 }
 
-export default App
+export default App;

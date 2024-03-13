@@ -11,8 +11,8 @@ const SelectorList = () => {
     }, []);
 
     return (
-        <>
-            <div>
+        <div className='main-container'>
+            <div className='switches'>
                 {values.length &&
                     values.map((value, index) => (
                         <Selector
@@ -23,14 +23,8 @@ const SelectorList = () => {
                         />
                     ))}
             </div>
-            {values.every((value) => value === false) ? (
-                ''
-            ) : (
-                <div>
-                    <p>ALL BUG RESOLVED !</p>
-                </div>
-            )}
-        </>
+            <div className='response'>{values.every((value) => value === false) ? <p>ALL BUG RESOLVED !</p> : ''}</div>
+        </div>
     );
 };
 
