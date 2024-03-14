@@ -1,12 +1,20 @@
+.main-container {
+    border-radius: 25px;
+    box-shadow: 1px 2px 11px 5px #000000;
+    padding: 1rem;
+    margin: 2rem;
+    background-color: #383838;
+}
+
 .switch-box {
-    padding: 3px;
+    padding: 0.2rem;
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
 .switch-box > span {
-    padding: 4px;
+    padding: 0.25rem;
 }
 
 .switch {
@@ -53,7 +61,7 @@
 }
 
 input:checked + .slider {
-    background-color: #2196f3;
+    background-color: #64bd52;
 }
 
 input:focus + .slider {
@@ -76,6 +84,13 @@ input:checked + .slider:before {
     border-radius: 50%;
 }
 
+.message {
+    text-shadow:
+        1px 1px 8px black,
+        1px -1px 8px black,
+        -1px 1px 8px black,
+        -1px -1px 8px black;
+}
 .ok {
     color: green;
 }
