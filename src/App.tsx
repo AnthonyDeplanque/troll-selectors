@@ -2,8 +2,8 @@ import { Toaster } from 'sonner';
 import SelectorList from './components/Selector-list';
 
 function App() {
+    console.log(process.env.GIVEAWAY_SECRET);
     return (
-        console.log(process.env.GIVEAWAY_SECRET);
         <>
             <SelectorList />
             <Toaster />
