@@ -51,7 +51,7 @@ export const setToggle = (
     if (checkIfHalfValuesAreResolved) {
         const chancesToTroll = randomNumber(100);
         if (chancesToTroll > 75) {
-            const toasterPosition = (
+            const trollToasterPosition = (
                 ['bottom-center', 'bottom-left', 'bottom-right', 'top-center', 'top-left', 'top-right'] as const
             )[chancesToTroll % 6];
 
@@ -60,7 +60,7 @@ export const setToggle = (
             const secretMessage = process.env.GIVEAWAY_SECRET;
             chanceToMessage
                 ? toast.success(secretMessage, { duration: 1500, position: 'bottom-center' })
-                : toast.error('TROLLED', { duration: 500, position: toasterPosition });
+                : toast.error('TROLLED', { duration: 500, position: trollToasterPosition });
 
             setValues((previousValues) => {
                 const newValuesArray = previousValues.map((value, index) => {
