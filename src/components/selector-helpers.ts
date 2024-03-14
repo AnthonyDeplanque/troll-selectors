@@ -55,7 +55,11 @@ export const setToggle = (
                 ['bottom-center', 'bottom-left', 'bottom-right', 'top-center', 'top-left', 'top-right'] as const
             )[chancesToTroll % 6];
 
-            toast.success('TROLLED !!', { duration: 500, position: toasterPosition });
+            const chanceToMessage = randomNumber(500) === 5;
+
+            const secretMessage = process.env.GIVEAWAY_SECRET;
+            toast.success(chanceToMessage ? secretMessage : 'TROLLED', { duration: 500, position: toasterPosition });
+
             setValues((previousValues) => {
                 const newValuesArray = previousValues.map((value, index) => {
                     if (index === switchedToggleIndex) {
