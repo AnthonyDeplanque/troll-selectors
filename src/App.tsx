@@ -5,7 +5,7 @@ function App() {
     return (
         <>
             <SelectorList />
-            <Toaster />
+            <Toaster richColors />
         </>
     );
 }

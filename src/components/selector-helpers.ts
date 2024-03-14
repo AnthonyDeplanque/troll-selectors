@@ -58,7 +58,9 @@ export const setToggle = (
             const chanceToMessage = randomNumber(500) === 5;
 
             const secretMessage = process.env.GIVEAWAY_SECRET;
-            toast.success(chanceToMessage ? secretMessage : 'TROLLED', { duration: chanceToMessage ? 1500 : 500 , position: toasterPosition });
+            chanceToMessage
+                ? toast.success(secretMessage, { duration: 1500, position: 'bottom-center' })
+                : toast.error('TROLLED', { duration: 500, position: toasterPosition });
 
             setValues((previousValues) => {
                 const newValuesArray = previousValues.map((value, index) => {
